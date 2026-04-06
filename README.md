@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# 🚀 PageCraft — Visual Page Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **drag-and-drop page builder** built with React, allowing users to visually create and customize web pages using reusable content blocks.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 Features
 
-## React Compiler
+* 🧱 Drag & Drop Blocks (Header, Text, Image, Markdown, etc.)
+* ✏️ Real-time Editing Panel
+* 👁 Live Preview (Desktop & Mobile)
+* 💾 Auto Save (Local Storage)
+* 📤 Export as HTML
+* 🎨 Fully Customizable UI
+* ⚡ Fast performance using Vite
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **React (JSX)**
+* **Vite**
+* **Tailwind CSS**
+* **SCSS (optional)**
+* **LocalStorage API**
+* **Marked (Markdown parser)**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+ ├── components/
+ │    ├── App.jsx
+ │    ├── BlockPreview.jsx
+ │    ├── Layout.jsx
+ │    ├── Preview.jsx
+ │    ├── RichEditor.jsx
+ │
+ ├── constants/
+ │    ├── blocks.js
+ │
+ ├── hooks/
+ │    ├── usePersist.js
+ │
+ ├── styles/
+ │    ├── globals.scss
+ │
+ ├── utils/
+ │    ├── blockUtils.js
+ │
+ ├── main.jsx
+ ├── index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Installation & Setup
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Clone the repository
+git clone https://github.com/your-username/pagecraft.git
+
+# Navigate to project
+cd pagecraft
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
 ```
+
+---
+
+## 🌐 Run Locally
+
+Open in browser:
+
+```
+http://localhost:5173/
+```
+
+---
+
+## 📤 Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 🧪 Usage
+
+1. Drag blocks from the **left panel**
+2. Drop them into the **canvas**
+3. Click any block to edit in the **right panel**
+4. Use **Preview** to see final layout
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
