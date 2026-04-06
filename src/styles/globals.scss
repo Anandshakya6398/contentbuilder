@@ -1,0 +1,351 @@
+@use 'variables' as *;
+
+// ─── Reset & Base ───
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: $font-sans;
+  background: $canvas-bg;
+}
+
+// ─── Scrollbar ───
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+
+// ─── Palette Items (Left Sidebar) ───
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 0.5px solid #e5e7eb;
+  border-radius: $radius-lg;
+  background: #f9fafb;
+  cursor: grab;
+  user-select: none;
+  transition: $transition-fast;
+
+  &:hover {
+    background: #fff;
+    border-color: #a5b4fc;
+    box-shadow: 0 1px 4px rgba(91, 115, 245, 0.08);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+// ─── Canvas Block ───
+.canvas-block {
+  background: #fff;
+  border: 1.5px solid #f3f4f6;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  transition: $transition-fast;
+  position: relative;
+
+  &:hover {
+    border-color: #c7d2fe;
+  }
+
+  &.selected {
+    border-color: $brand-500;
+    box-shadow: 0 0 0 3px rgba(91, 115, 245, 0.12);
+  }
+
+  // Block toolbar (visible on hover)
+  .block-toolbar {
+    display: none;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    gap: 4px;
+    z-index: 20;
+  }
+
+  &:hover .block-toolbar {
+    display: flex;
+  }
+}
+
+// ─── Control Buttons (toolbar icons) ───
+.ctrl-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: $radius-sm;
+  border: 0.5px solid #e5e7eb;
+  background: #fff;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  transition: $transition-fast;
+
+  &:hover {
+    background: #f3f4f6;
+    color: #374151;
+  }
+
+  &.del:hover {
+    background: #fef2f2;
+    color: #ef4444;
+    border-color: #fca5a5;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Drop Zone ───
+.drop-zone {
+  height: 6px;
+  border-radius: 4px;
+  transition: $transition-fast;
+
+  &.drag-over {
+    height: 40px;
+    background: #eef2ff;
+    border: 2px dashed #818cf8;
+    border-radius: $radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// ─── Editor Fields ───
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.editor-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+%editor-base {
+  width: 100%;
+  font-size: 13px;
+  padding: 7px 10px;
+  border-radius: $radius-md;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #1f2937;
+  outline: none;
+  transition: $transition-fast;
+  font-family: $font-sans;
+
+  &:focus {
+    border-color: #818cf8;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+  }
+}
+
+.editor-input {
+  @extend %editor-base;
+}
+
+.editor-textarea {
+  @extend %editor-base;
+  font-size: 12px;
+  resize: vertical;
+}
+
+.editor-select {
+  @extend %editor-base;
+  cursor: pointer;
+}
+
+// ─── Segment Button Group ───
+.seg-btn {
+  flex: 1;
+  padding: 6px;
+  font-size: 11px;
+  border-radius: 7px;
+  border: 1px solid #e5e7eb;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.12s;
+  text-transform: capitalize;
+
+  &.active {
+    background: $brand-500;
+    color: #fff;
+    border-color: $brand-500;
+  }
+}
+
+// ─── Toolbar Buttons ───
+.tb-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: $radius-md;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: $transition-fast;
+  background: transparent;
+  color: #4b5563;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+
+  &.danger {
+    color: #ef4444;
+    &:hover {
+      background: #fef2f2;
+    }
+  }
+
+  &.primary {
+    background: $brand-500;
+    color: #fff;
+    border-color: $brand-500;
+    &:hover {
+      background: #4f63d9;
+    }
+  }
+}
+
+// ─── Rich Text Preview ───
+.rich-preview {
+  h1 { font-size: 1.5rem; font-weight: 600; color: #111827; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.2rem; font-weight: 600; color: #111827; margin: 0 0 0.4rem; }
+  h3 { font-size: 1rem; font-weight: 600; color: #111827; margin: 0 0 0.4rem; }
+  p  { font-size: 0.875rem; line-height: 1.7; color: #374151; margin: 0 0 0.5rem; }
+  ul, ol { font-size: 0.875rem; line-height: 1.7; color: #374151; padding-left: 1.25rem; margin: 0 0 0.5rem; }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  a  { color: $brand-500; text-decoration: underline; }
+  strong { font-weight: 600; }
+}
+
+// ─── Markdown Preview ───
+.md-preview {
+  h1 { font-size: 1.5rem; font-weight: 600; color: #111827; margin: 0 0 0.5rem; }
+  h2 { font-size: 1.2rem; font-weight: 600; color: #111827; margin: 0 0 0.4rem; }
+  h3 { font-size: 1rem; font-weight: 600; color: #111827; margin: 0 0 0.4rem; }
+  p  { font-size: 0.875rem; line-height: 1.7; color: #374151; margin: 0 0 0.6rem; }
+  ul, ol { font-size: 0.875rem; color: #374151; padding-left: 1.25rem; margin-bottom: 0.6rem; }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-family: $font-mono; font-size: 0.8rem; color: $brand-500; }
+  pre {
+    background: #1e293b;
+    border-radius: $radius-md;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    margin: 0.6rem 0;
+    code { background: none; color: #86efac; font-size: 0.8rem; }
+  }
+  blockquote { border-left: 3px solid #818cf8; padding-left: 0.75rem; color: #6b7280; font-style: italic; margin: 0.5rem 0; }
+  a { color: $brand-500; text-decoration: underline; }
+  strong { font-weight: 600; }
+  hr { border: none; border-top: 1px solid #e5e7eb; margin: 0.75rem 0; }
+}
+
+// ─── Rich Text Editor (Quill-like) ───
+.quill-editor {
+  border: 1px solid #e5e7eb;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.quill-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 6px 8px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.q-btn {
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #374151;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: $font-sans;
+  transition: $transition-fast;
+
+  &:hover { background: #e5e7eb; }
+  &.active { background: #eef2ff; color: $brand-500; }
+}
+
+.q-select {
+  font-size: 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 2px 4px;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+}
+
+.quill-content {
+  min-height: 90px;
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.65;
+  outline: none;
+  color: #1f2937;
+
+  &:focus { background: #fafafa; }
+}
+
+// ─── Modal ───
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

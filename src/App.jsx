@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { usePersist } from './hooks/usePersist';
+import { usePersist } from './hooks/usePersists';
 import { exportHtml } from './utils/blockUtils';
 import { Toolbar, Palette, Canvas, EditorPanel } from './components/Layout';
 import PreviewModal from './components/PreviewModal';
